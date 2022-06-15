@@ -1,25 +1,22 @@
 import { Router } from 'express';
 
-import { CategoriesRepositories } from '../repositories/categoriesRepository';
+import { CategoriesRepository } from '../repositories/categoriesRepository';
+import { CreateCategoryService } from '../services/createCategoryService';
 
 const categoriesRoutes = Router();
-const categoriesRepositories = new CategoriesRepositories();
+const categoriesRepository = new CategoriesRepository();
 
 categoriesRoutes.post('/', (request, response) => {
   const { name, description } = request.body;
 
-  const categoryExists = categoriesRepositories.findByName(name);
+  const createCategoryService = new CreateCategoryService(categoriesRepository);
 
-  if (categoryExists) {
-    return response.status(400).json({ error: 'Categoria já cadastrada anteriormente' });
-  }
-
-  categoriesRepositories.create({ name, description });
+  createCategoryService.execute({ name, description });
   return response.status(201).send();
 });
 
 categoriesRoutes.get('/', (request, response) => {
-  const allCategories = categoriesRepositories.list();
+  const allCategories = categoriesRepository.list();
 
   return response.json(allCategories);
 });
