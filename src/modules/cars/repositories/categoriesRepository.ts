@@ -2,6 +2,10 @@ import { Category } from '../models/category';
 import { ICategoriesRepository, ICreateCategoryDTO } from './ICategoriesRepository';
 
 // aplicanto conceito do pattern singleton
+/**
+ * para resolver o problema do list que sempre vinha um array vazio foi aplicado um singleton
+ * assim verificando se essa instancia já existe retornando ela e caso contrário retorno uma nova
+ */
 class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
 
