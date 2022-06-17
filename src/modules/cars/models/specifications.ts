@@ -15,8 +15,9 @@ class Specification {
     if (!this.created_at) {
       this.created_at = new Date();
     }
-    this.name = name;
-    this.description = description;
+
+    // this.name = name;
+    // this.description = description;
   }
 }
 
